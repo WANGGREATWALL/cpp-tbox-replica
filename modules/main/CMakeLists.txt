@@ -9,30 +9,14 @@ add_definitions(-DMODULE_ID="tbox.main")
 
 set(TBOX_DEMO_NAME tbox_demo)
 
-# set(TBOX_MAIN_HEADERS
-#     context.h
-#     main.h
-#     module.h)
+set(TBOX_MAIN_HEADERS
+    context.h
+    main.h
+    module.h)
 
-# set(TBOX_MAIN_SOURCES
-#     context_imp.cpp
-#     run_in_frontend.cpp
-#     run_in_backend.cpp
-#     error_signals.cpp
-#     terminate.cpp
-#     misc.cpp
-#     args.cpp
-#     module.cpp
-#     log.cpp
-#     trace.cpp)
 set(TBOX_MAIN_SOURCES
     main.cpp
 )
-
-#set(TBOX_MAIN_TEST_SOURCES )
-
-# add_library(${TBOX_LIBRARY_NAME} ${TBOX_BUILD_LIB_TYPE} ${TBOX_MAIN_SOURCES})
-# add_library(tbox::${TBOX_LIBRARY_NAME} ALIAS ${TBOX_LIBRARY_NAME})
 
 set_target_properties(
     ${TBOX_LIBRARY_NAME} PROPERTIES
@@ -40,29 +24,8 @@ set_target_properties(
     SOVERSION ${TBOX_MAIN_VERSION_MAJOR}
 )
 
+link_directories(${CMAKE_BINARY_DIR}/base)
+
 add_executable(${TBOX_DEMO_NAME} ${TBOX_MAIN_SOURCES})
-
-# # install the target and create export-set
-# install(
-#     TARGETS ${TBOX_LIBRARY_NAME}
-#     EXPORT ${TBOX_LIBRARY_NAME}_targets
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-#     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-# )
-
-# # install header file
-# install(
-#     FILES ${TBOX_MAIN_HEADERS}
-#     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/tbox/main
-# )
-
-
-# # generate and install export file
-# install(
-#     EXPORT ${TBOX_LIBRARY_NAME}_targets
-#     FILE ${TBOX_LIBRARY_NAME}_targets.cmake
-#     NAMESPACE tbox::
-#     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tbox
-# )
+target_include_directories(${TBOX_DEMO_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/modules)
+target_link_libraries(${TBOX_DEMO_NAME} PRIVATE tbox_base)

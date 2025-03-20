@@ -48,7 +48,7 @@ message("*")
 #
 # 模块开关
 #
-option(TBOX_ENABLE_BASE "build base" OFF)
+option(TBOX_ENABLE_BASE "build base" ON)
 option(TBOX_ENABLE_UTIL "build util" OFF)
 option(TBOX_ENABLE_EVENT "build event" OFF)
 option(TBOX_ENABLE_EVENTX "build eventx" OFF)
